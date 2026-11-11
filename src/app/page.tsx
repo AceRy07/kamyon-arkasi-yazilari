@@ -19,7 +19,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ k
   const liste = YAZILAR.filter(
     (y) =>
       (!kategori || y.kategori === kategori) &&
-      (!aranan || kucuk(`${y.baslik} ${y.konum}`).includes(kucuk(aranan))),
+      (!aranan || kucuk(`${y.baslik} ${y.konum ?? ""}`).includes(kucuk(aranan))),
   );
 
   return (

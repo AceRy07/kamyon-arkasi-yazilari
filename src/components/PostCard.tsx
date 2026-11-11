@@ -10,11 +10,17 @@ export function FotoYok() {
   );
 }
 
+// object-contain: yazının tamamı kırpılmadan görünsün
+export function Foto({ yazi }: { yazi: Yazi }) {
+  if (!yazi.foto) return <FotoYok />;
+  return <img src={yazi.foto} alt={yazi.baslik} loading="lazy" className="h-full w-full bg-asfalt object-contain" />;
+}
+
 export default function PostCard({ yazi }: { yazi: Yazi }) {
   return (
     <article className="kart-golge flex flex-col overflow-hidden rounded-lg border-2 border-asfalt bg-kagit">
       <Link href={`/yazi/${yazi.slug}`} tabIndex={-1} aria-hidden="true" className="relative block aspect-[4/3] bg-asfalt-2">
-        <FotoYok />
+        <Foto yazi={yazi} />
       </Link>
       <div className="flex flex-1 flex-col gap-3.5 p-5">
         <Link
@@ -26,7 +32,7 @@ export default function PostCard({ yazi }: { yazi: Yazi }) {
         <h3 className="font-display text-[28px] font-bold uppercase leading-[1.15]">
           <Link href={`/yazi/${yazi.slug}`} className="text-asfalt no-underline hover:text-kirmizi">{yazi.baslik}</Link>
         </h3>
-        <p className="text-[15px] text-gri">{yazi.konum}</p>
+        {yazi.konum && <p className="text-[15px] text-gri">{yazi.konum}</p>}
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#d9d2c2] pt-3.5">
           <span className="text-sm text-gri">Gönderen: {yazi.gonderen}</span>
           <LikeButton id={yazi.id} baslangic={yazi.begeni} />
